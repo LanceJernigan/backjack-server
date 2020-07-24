@@ -14,16 +14,20 @@ const AppProvider = ({ children }) => {
     switch (action.type) {
       case 'add player':
         return { ...state, players: [...state.players, action.payload] };
+      case 'set players':
+        return { ...state, players: action.payload };
       default:
         throw new Error();
     }
   }, initialState);
 
-  console.log(context.getSenders, 'pre load');
-
   playerManager.setMessageInterceptor(
     castReceiver.framework.messages.MessageType.LOAD,
-    () => console.log(context.getSenders(), 'loaded')
+    () =>
+      dispatch({
+        type: 'set player',
+        payload: context.getSenders(),
+      })
   );
 
   context.addEventListener('SENDER_CONNECTED', (...props) =>
