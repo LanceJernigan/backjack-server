@@ -12,7 +12,7 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
       case 'add player':
-        return { ...state, players: [{ senderId: '1', userAgent: '2' }] };
+        return { ...state, players: [...state.players, action.payload] };
       default:
         throw new Error();
     }
