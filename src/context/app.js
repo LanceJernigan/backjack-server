@@ -25,7 +25,7 @@ const AppProvider = ({ children }) => {
     castReceiver.framework.messages.MessageType.LOAD,
     () =>
       dispatch({
-        type: 'set player',
+        type: 'set players',
         payload: context.getSenders(),
       })
   );
