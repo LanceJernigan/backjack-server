@@ -4,9 +4,11 @@ import castReceiver from 'castReceiver';
 const context = castReceiver.framework.CastReceiverContext.getInstance();
 context.start();
 
-const initialState = { players: context.getSenders, reciverContext: context };
+const initialState = { players: context.getSenders(), reciverContext: context };
 const appContext = createContext(initialState);
 const { Provider } = appContext;
+
+console.log(initialState, 'initial state');
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
