@@ -5,7 +5,7 @@ import castReceiver from 'castReceiver';
 export default () => {
   const { state, dispatch } = useContext(appContext);
 
-  console.log(state.players);
+  console.log(state.players, 'players');
 
   return (
     <section>
@@ -13,7 +13,7 @@ export default () => {
       <ul>
         {state.players.map(({ id, userAgent }) => (
           <li>
-            {senderId}: {userAgent}
+            {id}: {userAgent}
           </li>
         ))}
       </ul>
