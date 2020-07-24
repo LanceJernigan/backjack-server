@@ -6,24 +6,12 @@ export default () => {
   const { state, dispatch } = useContext(appContext);
 
   useEffect(() => {
-    const context = castReceiver.framework.CastReceiverContext.getInstance();
-    context.start();
-    const senders = context.getSenders();
+    const senders = state.reciverContext.getSenders();
 
     dispatch({
       type: 'add player',
       payload: senders,
     });
-    // context.addEventListener('SENDER_CONNECTED', (senderId, userAgent) => {
-    //   console.log(senderId, userAgent, 'sender connected');
-    //   dispatch({
-    //     type: 'add player',
-    //     payload: {
-    //       senderId,
-    //       userAgent,
-    //     },
-    //   });
-    // });
   });
 
   return (

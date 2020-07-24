@@ -1,6 +1,10 @@
 import React, { createContext, useReducer } from 'react';
+import castReceiver from 'castReceiver';
 
-const initialState = { players: [] };
+const context = castReceiver.framework.CastReceiverContext.getInstance();
+context.start();
+
+const initialState = { players: [], reciverContext: context };
 const appContext = createContext(initialState);
 const { Provider } = appContext;
 
