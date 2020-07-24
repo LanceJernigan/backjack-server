@@ -9,7 +9,7 @@ export default () => {
     castReceiver.framework.CastReceiverContext.getInstance().addEventListener(
       'SENDER_CONNECTED',
       (senderId, userAgent) => {
-        console.log(senderId, userAgent);
+        console.log(senderId, userAgent, 'sender connected');
         dispatch({
           type: 'add player',
           payload: {
