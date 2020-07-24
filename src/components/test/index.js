@@ -5,15 +5,6 @@ import castReceiver from 'castReceiver';
 export default () => {
   const { state, dispatch } = useContext(appContext);
 
-  useEffect(() => {
-    const senders = state.reciverContext.getSenders();
-
-    dispatch({
-      type: 'add player',
-      payload: senders,
-    });
-  });
-
   return (
     <section>
       <h2>Players</h2>
