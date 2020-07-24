@@ -15,8 +15,8 @@
     "core-js": "^2.6.3",
     "emotion-normalize": "^10.1.0",
     "normalize.css": "^8.0.1",
-    "react": "16.7.0",
-    "react-dom": "16.7.0",
+    "react": "next",
+    "react-dom": "next",
     "react-router-dom": "^4.3.1"
   },
   "devDependencies": {

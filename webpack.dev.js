@@ -16,6 +16,9 @@ const config = {
     port: 9000,
     historyApiFallback: true,
   },
+  externals: {
+    castReceiver: 'cast',
+  },
   optimization: {
     splitChunks: {
       chunks: 'all',

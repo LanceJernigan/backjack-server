@@ -10,6 +10,9 @@ const config = {
     path: __dirname + '/dist',
     filename: 'scripts/[name].js',
   },
+  externals: {
+    castReceiver: 'cast',
+  },
   optimization: {
     splitChunks: {
       chunks: 'all',
