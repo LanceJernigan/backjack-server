@@ -21,9 +21,10 @@ const AppProvider = ({ children }) => {
     }
   }, initialState);
 
-  playerManager.setMessageInterceptor(
-    castReceiver.framework.messages.MessageType.LOAD,
-    () =>
+  playerManager.addCustomMessageListener(
+    'SENDER_CONNECTED',
+    (...props) =>
+      console.log(props) ||
       dispatch({
         type: 'set players',
         payload: context.getSenders(),
