@@ -21,7 +21,7 @@ const AppProvider = ({ children }) => {
     }
   }, initialState);
 
-  playerManager.addCustomMessageListener(
+  context.addCustomMessageListener(
     'SENDER_CONNECTED',
     (...props) =>
       console.log(props) ||
