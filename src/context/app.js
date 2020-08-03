@@ -21,7 +21,7 @@ const AppProvider = ({ children }) => {
     }
   }, initialState);
 
-  context.addCustomMessageListener(
+  context.addEventListener(
     'SENDER_CONNECTED',
     (...props) =>
       console.log(props) ||
@@ -31,12 +31,12 @@ const AppProvider = ({ children }) => {
       })
   );
 
-  context.addEventListener('SENDER_CONNECTED', (...props) =>
-    dispatch({
-      type: 'add player',
-      payload: props,
-    })
-  );
+  //   context.addEventListener('SENDER_CONNECTED', (...props) =>
+  //     dispatch({
+  //       type: 'add player',
+  //       payload: props,
+  //     })
+  //   );
 
   return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
