@@ -25,6 +25,15 @@ const AppProvider = ({ children }) => {
             ? state.players
             : [...state.players, action.player],
         };
+
+      case 'remove player':
+        return {
+          ...state,
+          players: state.players.filer(
+            ({ senderId }) => senderId !== action.player.senderId
+          ),
+        };
+
       default:
         throw new Error();
     }
@@ -35,6 +44,15 @@ const AppProvider = ({ children }) => {
     (player) =>
       dispatch({
         type: 'add player',
+        player,
+      })
+  );
+
+  context.addEventListener(
+    castReceiver.framework.system.EventType.SENDER_DISDCONNECTED,
+    (player) =>
+      dispatch({
+        type: 'remove player',
         player,
       })
   );
