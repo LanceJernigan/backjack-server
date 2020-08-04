@@ -23,7 +23,7 @@ const AppProvider = ({ children }) => {
     castReceiver.framework.system.EventType.SENDER_CONNECTED,
     (player) =>
       dispatch({
-        type: 'set players',
+        type: 'add player',
         player,
       })
   );
