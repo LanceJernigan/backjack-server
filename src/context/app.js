@@ -13,9 +13,7 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
       case 'add player':
-        return { ...state, players: [...state.players, action.payload] };
-      case 'set players':
-        return { ...state, players: action.payload };
+        return { ...state, players: [...state.players, action.player] };
       default:
         throw new Error();
     }
@@ -23,30 +21,12 @@ const AppProvider = ({ children }) => {
 
   context.addEventListener(
     castReceiver.framework.system.EventType.SENDER_CONNECTED,
-    (...props) =>
-      console.log(props) ||
+    (player) =>
       dispatch({
         type: 'set players',
-        payload: context.getSenders(),
+        player,
       })
   );
-
-  context.addEventListener(
-    'SYSTEM_VOLUME_CHANGED',
-    (...props) =>
-      console.log(props) ||
-      dispatch({
-        type: 'set players',
-        payload: context.getSenders(),
-      })
-  );
-
-  //   context.addEventListener('SENDER_CONNECTED', (...props) =>
-  //     dispatch({
-  //       type: 'add player',
-  //       payload: props,
-  //     })
-  //   );
 
   return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
