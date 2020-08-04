@@ -65,11 +65,9 @@ const AppProvider = ({ children }) => {
 
   context.addEventListener(cast.framework.system.EventType.READY, () => {
     const session = context.getCurrentSession();
-    session.addCustomMessageListener(BACKJACK_NAMESPACE, (type, data) =>
-      dispatch({
-        type,
-        data,
-      })
+    session.addCustomMessageListener(
+      BACKJACK_NAMESPACE,
+      (type, data) => console.log(type) || dispatch(data)
     );
   });
 
