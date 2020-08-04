@@ -15,7 +15,8 @@ const AppProvider = ({ children }) => {
       case 'add player':
         const isDuplicate = state.players.reduce(
           (_isDuplicate, player) =>
-            _isDuplicate || player.senderId === action.player.senderId
+            _isDuplicate || player.senderId === action.player.senderId,
+          false
         );
 
         return {
