@@ -31,6 +31,16 @@ const AppProvider = ({ children }) => {
       })
   );
 
+  context.addEventListener(
+    'SYSTEM_VOLUME_CHANGED',
+    (...props) =>
+      console.log(props) ||
+      dispatch({
+        type: 'set players',
+        payload: context.getSenders(),
+      })
+  );
+
   //   context.addEventListener('SENDER_CONNECTED', (...props) =>
   //     dispatch({
   //       type: 'add player',
