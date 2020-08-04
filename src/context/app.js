@@ -2,8 +2,11 @@ import React, { createContext, useReducer } from 'react';
 import cast from 'castReceiver';
 
 const BACKJACK_NAMESPACE = 'urn:x-cast:backjack';
+const castReceiverOptions = {
+  customNamespaces: [BACKJACK_NAMESPACE],
+};
 const context = cast.framework.CastReceiverContext.getInstance();
-context.start();
+context.start(castReceiverOptions);
 
 const initialState = { players: [], reciverContext: context };
 const appContext = createContext(initialState);
