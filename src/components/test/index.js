@@ -13,7 +13,10 @@ export default () => {
       <ul>
         {state.players.map(({ senderId, userAgent }) => (
           <li>
-            {senderId}: {userAgent}
+            <h5>{name}</h5>
+            <p>
+              {senderId}: {userAgent}
+            </p>
           </li>
         ))}
       </ul>
