@@ -11,9 +11,9 @@ export default () => {
     <section>
       <h2>Players</h2>
       <ul>
-        {state.players.map(({ id, userAgent }) => (
+        {state.players.map(({ senderId, userAgent }) => (
           <li>
-            {id}: {userAgent}
+            {senderId}: {userAgent}
           </li>
         ))}
       </ul>

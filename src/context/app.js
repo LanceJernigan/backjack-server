@@ -22,6 +22,7 @@ const AppProvider = ({ children }) => {
   context.addEventListener(
     castReceiver.framework.system.EventType.SENDER_CONNECTED,
     (player) =>
+      console.log(player) ||
       dispatch({
         type: 'add player',
         player,
