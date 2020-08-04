@@ -22,7 +22,7 @@ const AppProvider = ({ children }) => {
   }, initialState);
 
   context.addEventListener(
-    'SENDER_CONNECTED',
+    castReceiver.framework.system.EventType.SENDER_CONNECTED,
     (...props) =>
       console.log(props) ||
       dispatch({
