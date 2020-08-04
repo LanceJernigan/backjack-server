@@ -1,8 +1,9 @@
 import React, { createContext, useReducer } from 'react';
-import castReceiver from 'castReceiver';
+import cast from 'castReceiver';
 
-const context = castReceiver.framework.CastReceiverContext.getInstance();
-const playerManager = context.getPlayerManager();
+const BACKJACK_NAMESPACE = 'urn:x-cast:backjack';
+const context = cast.framework.CastReceiverContext.getInstance();
+const session = context.getCurrentSession();
 context.start();
 
 const initialState = { players: [], reciverContext: context };
@@ -29,9 +30,15 @@ const AppProvider = ({ children }) => {
       case 'remove player':
         return {
           ...state,
-          players: state.players.filer(
+          players: state.players.filter(
             ({ senderId }) => senderId !== action.player.senderId
           ),
+        };
+
+      case 'update player':
+        return {
+          ...state,
+          players: state.players.map((player) => ({ ...player, data })),
         };
 
       default:
@@ -40,7 +47,7 @@ const AppProvider = ({ children }) => {
   }, initialState);
 
   context.addEventListener(
-    castReceiver.framework.system.EventType.SENDER_CONNECTED,
+    cast.framework.system.EventType.SENDER_CONNECTED,
     (player) =>
       dispatch({
         type: 'add player',
@@ -49,12 +56,28 @@ const AppProvider = ({ children }) => {
   );
 
   context.addEventListener(
-    castReceiver.framework.system.EventType.SENDER_DISDCONNECTED,
+    cast.framework.system.EventType.SENDER_DISDCONNECTED,
     (player) =>
       dispatch({
         type: 'remove player',
         player,
       })
+  );
+
+  context.addEventListener(
+    cast.framework.CastContextEventType.SESSION_STATE_CHANGED,
+    (sessionState) => {
+      switch (sessionState) {
+        case cast.framework.SessionState.SESSION_STARTED:
+          const session = context.getCurrentSession();
+          session.addCustomMessageListener(BACKJACK_NAMESPACE, (type, data) =>
+            dispatch({
+              type,
+              data,
+            })
+          );
+      }
+    }
   );
 
   return <Provider value={{ state, dispatch }}>{children}</Provider>;
