@@ -3,7 +3,6 @@ import cast from 'castReceiver';
 
 const BACKJACK_NAMESPACE = 'urn:x-cast:backjack';
 const context = cast.framework.CastReceiverContext.getInstance();
-const session = context.getCurrentSession();
 context.start();
 
 const initialState = { players: [], reciverContext: context };
@@ -64,21 +63,15 @@ const AppProvider = ({ children }) => {
       })
   );
 
-  context.addEventListener(
-    cast.framework.CastContextEventType.SESSION_STATE_CHANGED,
-    (sessionState) => {
-      switch (sessionState) {
-        case cast.framework.SessionState.SESSION_STARTED:
-          const session = context.getCurrentSession();
-          session.addCustomMessageListener(BACKJACK_NAMESPACE, (type, data) =>
-            dispatch({
-              type,
-              data,
-            })
-          );
-      }
-    }
-  );
+  context.addEventListener(cast.framework.system.EventType.READY, () => {
+    const session = context.getCurrentSession();
+    session.addCustomMessageListener(BACKJACK_NAMESPACE, (type, data) =>
+      dispatch({
+        type,
+        data,
+      })
+    );
+  });
 
   return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
