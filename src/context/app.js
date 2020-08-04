@@ -13,7 +13,17 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
       case 'add player':
-        return { ...state, players: [...state.players, action.player] };
+        const isDuplicate = state.players.reduce(
+          (_isDuplicate, player) =>
+            _isDuplicate || player.senderId === action.player.senderId
+        );
+
+        return {
+          ...state,
+          players: isDuplicate
+            ? state.players
+            : [...state.players, action.player],
+        };
       default:
         throw new Error();
     }
@@ -22,7 +32,6 @@ const AppProvider = ({ children }) => {
   context.addEventListener(
     castReceiver.framework.system.EventType.SENDER_CONNECTED,
     (player) =>
-      console.log(player) ||
       dispatch({
         type: 'add player',
         player,
